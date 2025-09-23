@@ -10,54 +10,61 @@ if you want to view the source, please visit the github repository of this plugi
 
 const prod = process.argv[2] === "production";
 const options = Object.freeze({
-	banner: {
-		js: banner,
-	},
-	entryPoints: ["src/main.ts", "src/styles.css"],
-	bundle: true,
-	minify: prod,
-	external: [
-		"obsidian",
-		"electron",
-		"@codemirror/autocomplete",
-		"@codemirror/closebrackets",
-		"@codemirror/collab",
-		"@codemirror/commands",
-		"@codemirror/comment",
-		"@codemirror/fold",
-		"@codemirror/gutter",
-		"@codemirror/highlight",
-		"@codemirror/history",
-		"@codemirror/language",
-		"@codemirror/lint",
-		"@codemirror/matchbrackets",
-		"@codemirror/panel",
-		"@codemirror/rangeset",
-		"@codemirror/rectangular-selection",
-		"@codemirror/search",
-		"@codemirror/state",
-		"@codemirror/stream-parser",
-		"@codemirror/text",
-		"@codemirror/tooltip",
-		"@codemirror/view",
-		"@lezer/common",
-		"@lezer/highlight",
-		"@lezer/lr",
-		...builtins,
-	],
-	mainFields: ["svelte", "browser", "module", "main"],
-	format: "cjs",
-	target: "ES2020",
-	logLevel: "info",
-	sourcemap: prod ? false : "inline",
-	treeShaking: true,
-	outdir: ".",
+  banner: { js: banner },
+  entryPoints: [
+    "src/main.ts",
+    "src/styles.css",
+  ],
+  bundle: true,
+  minify: prod,
+  external: [
+    "obsidian",
+    "electron",
+    "@codemirror/autocomplete",
+    "@codemirror/closebrackets",
+    "@codemirror/collab",
+    "@codemirror/commands",
+    "@codemirror/comment",
+    "@codemirror/fold",
+    "@codemirror/gutter",
+    "@codemirror/highlight",
+    "@codemirror/history",
+    "@codemirror/language",
+    "@codemirror/lint",
+    "@codemirror/matchbrackets",
+    "@codemirror/panel",
+    "@codemirror/rangeset",
+    "@codemirror/rectangular-selection",
+    "@codemirror/search",
+    "@codemirror/state",
+    "@codemirror/stream-parser",
+    "@codemirror/text",
+    "@codemirror/tooltip",
+    "@codemirror/view",
+    "@lezer/common",
+    "@lezer/highlight",
+    "@lezer/lr",
+    ...builtins,
+  ],
+  mainFields: [
+    "svelte",
+    "browser",
+    "module",
+    "main",
+  ],
+  format: "cjs",
+  target: "ES2020",
+  logLevel: "info",
+  sourcemap: prod ? false : "inline",
+  treeShaking: true,
+  outdir: ".",
 });
 
 if (!prod) {
-	const context = await esbuild.context(options);
+  const context = await esbuild.context(options);
 
-	await context.watch();
-} else {
-	esbuild.build(options).catch(() => process.exit(1));
+  await context.watch();
+}
+else {
+  esbuild.build(options).catch(() => process.exit(1));
 }
