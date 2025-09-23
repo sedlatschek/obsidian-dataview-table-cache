@@ -7,7 +7,6 @@ import tseslint from "typescript-eslint";
 export default defineConfig([
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
-    ignores: ["node_modules/**"],
     plugins: { js },
     extends: ["js/recommended"],
     languageOptions: {
@@ -61,5 +60,12 @@ export default defineConfig([
         },
       ],
     },
+  },
+  {
+    ignores: [
+      "node_modules/**",
+      "obsidian-dataview-table-cache",
+      "dist",
+    ],
   },
 ]);

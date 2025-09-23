@@ -1,15 +1,15 @@
 {
   "name": "obsidian-dataview-table-cache",
   "version": "1.0.0",
-  "description": "Adds a `tables` property to each dataview page",
+  "description": "Adds a `tables` property to each dataview page.",
   "license": "ISC",
   "author": "Simon Sedlatschek <code@sedlatschek.com>",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "dev": "node esbuild.config.mjs",
-    "lint": "eslint --fix",
-    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+    "dev": "node esbuild.config.mts",
+    "lint": "eslint",
+    "build": "rimraf --glob dist/* && tsc -noEmit -skipLibCheck && node esbuild.config.mts production",
     "test": "vitest run --config vitest.config.mts"
   },
   "devDependencies": {
@@ -17,6 +17,7 @@
     "@stylistic/eslint-plugin": "^5.4.0",
     "@types/node": "^24.5.2",
     "builtin-modules": "^5.0.0",
+    "dotenv": "^17.2.2",
     "esbuild": "^0.25.10",
     "esbuild-plugin-copy": "^2.1.1",
     "eslint": "^9.36.0",
@@ -26,6 +27,7 @@
     "obsidian-dataview": "^0.4.21",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.44.1",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "zod": "^4.1.11"
   }
 }

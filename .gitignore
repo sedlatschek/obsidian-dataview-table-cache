@@ -1,5 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+# dev vault
+obsidian-dataview-table-cache
+
 # compiled output
 /dist
 /tmp
@@ -90,8 +93,3 @@ lerna-debug.log
 .DS_Store
 Thumbs.db
 .werk
-
-# build
-main.js
-styles.css
-*.js.map
