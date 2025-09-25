@@ -14,7 +14,18 @@
     "strictNullChecks": true,
     "lib": ["ES2022"],
     "experimentalDecorators": true,
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "paths" :{
+      "index": ["./node_modules/obsidian-dataview/lib/index"],
+      "data-model/*": ["./node_modules/obsidian-dataview/lib/data-model/*"],
+      "api/*": ["./node_modules/obsidian-dataview/lib/api/*"],
+      "data-import/*": ["./node_modules/obsidian-dataview/lib/data-import/*"],
+      "data-index": ["./node_modules/obsidian-dataview/lib/data-index/index"],
+      "data-index/*": ["./node_modules/obsidian-dataview/lib/data-index/*"],
+      "query/*": ["./node_modules/obsidian-dataview/lib/query/*"],
+      "expression/*": ["./node_modules/obsidian-dataview/lib/expression/*"],
+      "settings": ["./node_modules/obsidian-dataview/lib/settings"]
+    }
   },
   "include": ["**/*.ts"]
 }

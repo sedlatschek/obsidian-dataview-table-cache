@@ -4,8 +4,9 @@ import { resolve } from "path";
 export default defineConfig({
   resolve: {
     alias: {
-      src: resolve("./src"),
-      obsidian: resolve("./tests/obsidian-stub.ts"),
+      "src": resolve("./src"),
+      "obsidian": resolve(__dirname, "./stubs/obsidian.ts"),
+      "obsidian-dataview": resolve(__dirname, "./stubs/obsidian-dataview.ts"),
     },
   },
   test: {
