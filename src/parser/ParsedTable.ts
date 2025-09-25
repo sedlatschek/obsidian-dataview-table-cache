@@ -4,7 +4,7 @@ import type { ParsedCell } from "./ParsedCell";
 export interface ParsedTable {
   index: number;
   caption?: string;
-  headers: string[];
+  headers: ParsedCell[];
   alignment?: Table["align"];
   rows: ParsedCell[][];
 }

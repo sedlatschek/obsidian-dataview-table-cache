@@ -6,9 +6,9 @@ import type {
   Link as MdastLink,
   WikiLink as MdastWikiLink,
 } from "mdast";
-import { toString } from "src/mdast/content";
-import { ExternalLinkMappingError } from "src/errors/ExternalLinkMappingError";
-import { isExternalLink } from "src/utility/utility";
+import { toString } from "../mdast/content";
+import { ExternalLinkMappingError } from "../errors/ExternalLinkMappingError";
+import { isExternalLink } from "../utility/utility";
 
 const MARKDOWN_EXTENSION_REGEX = /\.md?$/i;
 

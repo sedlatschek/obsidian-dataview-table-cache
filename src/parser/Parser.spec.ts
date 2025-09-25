@@ -1,12 +1,12 @@
-import type { Link } from "obsidian-dataview";
-import type { ParsedTable } from "./ParsedTable";
-import type { IParser } from "./Parser";
-import { RemarkParser } from "./RemarkParser";
 import {
   describe,
   expect,
   it,
 } from "vitest";
+import type { Link } from "obsidian-dataview";
+import type { ParsedTable } from "./ParsedTable";
+import type { IParser } from "./Parser";
+import { RemarkParser } from "./RemarkParser";
 
 describe("Parser", () => {
   const parsers: Record<string, IParser> = { [RemarkParser.name]: new RemarkParser() };
@@ -94,9 +94,18 @@ describe("Parser", () => {
         const tables = await parser.getTablesFromMarkdown(markdown);
         const expectation: Partial<ParsedTable> = {
           headers: [
-            "Ingredient",
-            "Amount",
-            "Unit",
+            {
+              display: "Ingredient",
+              links: [],
+            },
+            {
+              display: "Amount",
+              links: [],
+            },
+            {
+              display: "Unit",
+              links: [],
+            },
           ],
         };
         expect(tables).to.containSubset([expectation]);
@@ -110,9 +119,9 @@ describe("Parser", () => {
         const tables = await parser.getTablesFromMarkdown(markdown);
         const expectation: Partial<ParsedTable> = {
           headers: [
-            "",
-            "",
-            "",
+            { links: [] },
+            { links: [] },
+            { links: [] },
           ],
         };
         expect(tables).to.containSubset([expectation]);
@@ -242,8 +251,14 @@ describe("Parser", () => {
         const expectation: Omit<ParsedTable, "rows"> & { rows: { display?: string; links: Partial<Link> }[][] } = {
           index: 0,
           headers: [
-            "Link",
-            "WikiLink",
+            {
+              display: "Link",
+              links: [],
+            },
+            {
+              display: "WikiLink",
+              links: [],
+            },
           ],
           alignment: [
             null,
@@ -418,9 +433,18 @@ alert("This is a code block that should be ignored.");
       const expectation: Partial<ParsedTable> = {
         index: 0,
         headers: [
-          "Ingredient",
-          "Amount",
-          "Unit",
+          {
+            display: "Ingredient",
+            links: [],
+          },
+          {
+            display: "Amount",
+            links: [],
+          },
+          {
+            display: "Unit",
+            links: [],
+          },
         ],
         alignment: [
           "left",

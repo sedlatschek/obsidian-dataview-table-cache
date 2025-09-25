@@ -16,17 +16,17 @@ import {
 } from "../mdast/types.js";
 import type { IParser } from "./Parser.js";
 import type { ParsedTable } from "./ParsedTable.js";
-import { toString } from "src/mdast/content.js";
+import { toString } from "../mdast/content.js";
 import type { ParsedCell } from "./ParsedCell.js";
-import { mdastLinkToDvLink } from "src/mapper/mapper.js";
-import { getDataviewApi } from "src/dataview/api.js";
-import { isExternalLink } from "src/utility/utility.js";
+import { mdastLinkToDvLink } from "../mapper/links.js";
+import { isExternalLink } from "../utility/utility.js";
+import { getContainer } from "../container.js";
 
 export class RemarkParser implements IParser {
   private readonly processor = unified().use(remarkParse).use(remarkGfm).use(remarkWikiLink);
 
   public async getTablesFromMarkdown(markdown: string, app?: App): Promise<ParsedTable[]> {
-    const dv = getDataviewApi(app);
+    const dv = getContainer().dataviewManager.getDataviewApi(app);
     const tree = this.processor.parse(markdown);
 
     const tables: ParsedTable[] = [];
@@ -42,7 +42,7 @@ export class RemarkParser implements IParser {
         ...body
       ] = node.children;
 
-      const headers = head ? head.children.map((child) => toString(child)) : [];
+      const headers = head ? head.children.map((child) => this.getParcedCell(dv, child)) : [];
       const rows = body.map((row) => row.children.map((child) => this.getParcedCell(dv, child)));
 
       const parsedTable: ParsedTable = {

@@ -11,8 +11,8 @@ describe(Table.name, () => {
       const table = new Table({
         path: "test.md",
         index: 12,
-        headers: ["header"],
-        rows: [["row"]],
+        headers: [],
+        rows: [],
       });
       expect(table.identifier).to.equal("test.md::12");
     });
@@ -21,8 +21,8 @@ describe(Table.name, () => {
       const table = new Table({
         path: "test.md",
         index: 12,
-        headers: ["header"],
-        rows: [["row"]],
+        headers: [],
+        rows: [],
         caption: "myTable",
       });
       expect(table.identifier).to.equal("test.md::myTable");

@@ -8,12 +8,12 @@ import type {
   Link as MdastLink,
   WikiLink as MdastWikiLink,
 } from "mdast";
-import { mdastLinkToDvLink } from "./mapper";
-import { getDataviewApi } from "src/dataview/api";
+import { mdastLinkToDvLink } from "./links";
+import { getContainer } from "../container";
 
-describe("mapper", () => {
+describe("links", () => {
   describe(mdastLinkToDvLink.name, () => {
-    const dv = getDataviewApi();
+    const dv = getContainer().dataviewManager.getDataviewApi();
 
     const tests: { name: string; link: MdastLink; wikiLink: MdastWikiLink; expectedDvLink: Partial<DvLink> }[] = [
       {
