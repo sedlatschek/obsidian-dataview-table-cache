@@ -8,6 +8,7 @@ export function toString(phrasingContent: PhrasingContent | TableCell | Paragrap
   switch (phrasingContent.type) {
     case "break":
       return "\n";
+    // TODO: case "highlight":
     case "delete":
     case "emphasis":
     case "paragraph":
@@ -15,11 +16,11 @@ export function toString(phrasingContent: PhrasingContent | TableCell | Paragrap
     case "tableCell":
       return phrasingContent.children.map(toString).join("");
     case "footnoteReference":
-      return phrasingContent.label ?? "XXX";
+      return `[${phrasingContent.label ?? phrasingContent.identifier}]`;
     case "image":
-      return phrasingContent.title ?? "XXX";
+      return `[${phrasingContent.title ?? phrasingContent.alt ?? phrasingContent.url}]`;
     case "imageReference":
-      return phrasingContent.label ?? "XXX";
+      return phrasingContent.label ?? phrasingContent.alt ?? phrasingContent.identifier;
     case "link":
       if (phrasingContent.title) {
         return phrasingContent.title;
@@ -29,7 +30,7 @@ export function toString(phrasingContent: PhrasingContent | TableCell | Paragrap
       }
       return phrasingContent.url;
     case "linkReference":
-      return phrasingContent.label ?? "XXX";
+      return phrasingContent.label ?? phrasingContent.identifier;
     case "html":
     case "inlineCode":
     case "text":
