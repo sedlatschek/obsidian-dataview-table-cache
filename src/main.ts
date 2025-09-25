@@ -14,6 +14,7 @@ export default class ObsidianDataviewTableCache extends Plugin {
     dataviewManager.patchDataviewApi(this.app);
 
     this.registerEvent(this.app.metadataCache.on("dataview:index-ready", async () => {
+      dataviewManager.patchPageMetadata(this.app);
       await cacheManager.rebuildCache(this.app);
     }));
 

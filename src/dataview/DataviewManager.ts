@@ -3,6 +3,8 @@ import {
   getAPI,
   type DataArray,
   type DataviewApi,
+  type FullIndex,
+  type PageMetadata,
 } from "obsidian-dataview";
 
 import { getContainer } from "../container";
@@ -11,6 +13,7 @@ import { isSmarkdownPage } from "./ExtendedSMarkdownPage";
 import type { ITable } from "../table/Table";
 import { addExtensionIfMissing as appendExtensionIfMissing } from "../utility/utility";
 import { InvalidQueryFormatError } from "../errors/InvalidQueryFormatError";
+import { PatchingError } from "src/errors/PatchingError";
 
 export class DataviewManager {
   public getDataviewApi(app?: App): DataviewApi {
@@ -21,7 +24,7 @@ export class DataviewManager {
     return dv;
   }
 
-  public patchDataviewApi(app?: App): void {
+  public patchDataviewApi(app: App): void {
     const dv = this.getDataviewApi(app);
 
     dv.queryTable = (query: string): ITable | undefined => {
@@ -54,4 +57,41 @@ export class DataviewManager {
       return dv.array(tables);
     };
   }
+
+  public patchPageMetadata(app: App): void {
+    const dvPlugin = app.plugins.getPlugin("dataview");
+    if (!dvPlugin) {
+      throw new DataviewNotFoundError();
+    }
+
+    const index = dvPlugin.index as FullIndex | undefined;
+    if (!index) {
+      throw new PatchingError("Dataview index is not ready");
+    }
+
+    const first = index.pages.values().next().value;
+    if (!first) {
+      throw new PatchingError("Dataview index has no pages");
+    }
+
+    const PageMetadataConstructor = first.constructor;
+    if (!PageMetadataConstructor?.prototype) {
+      throw new PatchingError("Dataview PageMetadata constructor not found");
+    }
+
+    const originalSerialize = PageMetadataConstructor.prototype.serialize as PageMetadata["serialize"];
+    if (typeof originalSerialize !== "function") {
+      throw new PatchingError("Dataview PageMetadata.serialize is not a function");
+    }
+
+    if (originalSerialize.name === "patchedSerialize") {
+      return;
+    }
+
+    PageMetadataConstructor.prototype.serialize = function patchedSerialize(this: PageMetadata, ...args: unknown[]) {
+      const result = originalSerialize.apply(this, args);
+      result.file.tables = getContainer().cacheManager.getCache(app).getTables(this.path);
+      return result;
+    };
+  };
 }
