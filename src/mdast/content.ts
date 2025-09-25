@@ -21,16 +21,20 @@ export function toString(phrasingContent: PhrasingContent | TableCell | Paragrap
     case "imageReference":
       return phrasingContent.label ?? "XXX";
     case "link":
+      if (phrasingContent.title) {
+        return phrasingContent.title;
+      }
       if (phrasingContent.children.length > 0) {
         return phrasingContent.children.map(toString).join("");
       }
-      return phrasingContent.title ?? phrasingContent.url;
+      return phrasingContent.url;
     case "linkReference":
       return phrasingContent.label ?? "XXX";
     case "html":
     case "inlineCode":
     case "text":
-    case "wikiLink":
       return phrasingContent.value;
+    case "wikiLink":
+      return phrasingContent.data.alias.replace("#", " > ");
   }
 }

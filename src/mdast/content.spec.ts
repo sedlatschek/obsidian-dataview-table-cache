@@ -8,7 +8,7 @@ import { toString } from "./content";
 describe("mdast/content", () => {
   describe("toString", () => {
     describe("link", () => {
-      it("returns text if provided", () => {
+      it("returns title if provided", () => {
         // [Example](https://example.org) => Example
         const link: Link = {
           type: "link",
@@ -22,16 +22,21 @@ describe("mdast/content", () => {
           ],
         };
         const result = toString(link);
-        expect(result).to.equal("Example");
+        expect(result).to.equal("title");
       });
 
-      it("returns title if no text is provided", () => {
+      it("returns text if no title is provided", () => {
         // [](https://example.org "Example") => Example
         const link: Link = {
           type: "link",
-          title: "Example",
+          title: undefined,
           url: "https://example.org",
-          children: [],
+          children: [
+            {
+              type: "text",
+              value: "Example",
+            },
+          ],
         };
         const result = toString(link);
         expect(result).to.equal("Example");

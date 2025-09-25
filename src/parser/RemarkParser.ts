@@ -59,13 +59,13 @@ export class RemarkParser implements IParser {
   }
 
   private getParcedCell(dv: DataviewApi, tableCell: TableCell): ParsedCell {
-    const content = toString(tableCell);
+    const display = toString(tableCell);
     const links = tableCell.children
       .filter((node) => node.type === "link" || node.type === "wikiLink")
       .filter((node) => !("url" in node) || !isExternalLink(node.url))
       .map((link) => mdastLinkToDvLink(dv, link));
     return {
-      ...(content.length > 0 && { display: content }),
+      ...(display.length > 0 && { display }),
       links,
     };
   }

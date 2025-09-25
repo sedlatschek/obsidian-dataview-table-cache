@@ -331,7 +331,7 @@ describe("Parser", () => {
                 ],
               },
               {
-                display: "ProFuel OMEGA-3 Forte#Ingredients",
+                display: "ProFuel OMEGA-3 Forte > Ingredients",
                 links: [
                   {
                     display: "ProFuel OMEGA-3 Forte > Ingredients",
@@ -357,7 +357,7 @@ describe("Parser", () => {
                 ],
               },
               {
-                display: "ProFuel OMEGA-3 Forte#^asdf",
+                display: "ProFuel OMEGA-3 Forte > ^asdf",
                 links: [
                   {
                     display: "ProFuel OMEGA-3 Forte > ^asdf",
