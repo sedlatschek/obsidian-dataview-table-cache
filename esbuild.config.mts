@@ -33,6 +33,7 @@ const options = {
   entryPoints,
   bundle: true,
   minify: prod,
+  keepNames: true,
   external: [
     "obsidian",
     "electron",
