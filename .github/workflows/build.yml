@@ -13,26 +13,36 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      artifact_name: ${{ steps.pkgmeta.outputs.artifact_name }}
+      archive_name: ${{ steps.pkgmeta.outputs.archive_name }}
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '24.x'
           cache: 'npm'
+      - id: pkgmeta
+        run: |
+          PKG_NAME=$(node -p "require('./package.json').name")
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          BASENAME=$(echo "$PKG_NAME" | sed -e 's/^@//' -e 's/\//-/g')
+          ARCHIVE_NAME="${BASENAME}-${PKG_VERSION}.tgz"
+          echo "artifact_name=$ARCHIVE_NAME" >> "$GITHUB_OUTPUT"
+          echo "archive_name=$ARCHIVE_NAME" >> "$GITHUB_OUTPUT"
+          echo "ARCHIVE_NAME=$ARCHIVE_NAME" >> "$GITHUB_ENV"
       - run: npm ci
       - run: npm run build
       - run: npm run lint
       - run: npm test
-      - name: Archive dist
+      - name: archive dist
         if: startsWith(github.ref, 'refs/tags/v')
-        run: tar -czf dist.tgz dist
+        run: tar -czf "$ARCHIVE_NAME" dist
       - uses: actions/upload-artifact@v4
         if: startsWith(github.ref, 'refs/tags/v')
         with:
-          name: dist
-          path: dist.tgz
-
+          name: ${{ steps.pkgmeta.outputs.artifact_name }}
+          path: $ARCHIVE_NAME
   release:
     needs: build
     runs-on: ubuntu-latest
@@ -47,14 +57,13 @@ jobs:
           fi
       - uses: actions/download-artifact@v4
         with:
-          name: dist
+          name: ${{ needs.build.outputs.artifact_name }}
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
           generate_release_notes: true
-          files: |
-            dist.tgz
+          files: ${{ needs.build.outputs.archive_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
