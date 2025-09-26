@@ -10,7 +10,8 @@
     "dev": "node esbuild.config.mts",
     "lint": "eslint",
     "build": "rimraf --glob dist/* && tsc -noEmit -skipLibCheck && node esbuild.config.mts production",
-    "test": "vitest run --config vitest.config.mts"
+    "test": "vitest run --config vitest.config.mts",
+    "preversion": "node release.mts"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
