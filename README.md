@@ -1,6 +1,22 @@
 # Obsidian Dataview Table Cache
 
-Adds a `tables` property to each dataview page.
+Caches tables and their contents to provide it to dataview.
+
+## Usage
+
+```js
+dv.pages().map(p => p.tables);
+
+// or
+
+dv.queryTable('"TableFolder"');
+```
+
+## Disclaimer
+
+This plugin is not affiliated with or endorsed by the Obsidian developers.
+
+It is implemented in a hacky way and can break at any time.
 
 ## Development
 
