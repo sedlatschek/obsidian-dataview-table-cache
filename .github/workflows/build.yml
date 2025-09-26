@@ -14,7 +14,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      artifact_name: ${{ steps.pkgmeta.outputs.artifact_name }}
       archive_name: ${{ steps.pkgmeta.outputs.archive_name }}
     steps:
       - uses: actions/checkout@v4
@@ -28,9 +27,8 @@ jobs:
           PKG_VERSION=$(node -p "require('./package.json').version")
           BASENAME=$(echo "$PKG_NAME" | sed -e 's/^@//' -e 's/\//-/g')
           ARCHIVE_NAME="${BASENAME}-${PKG_VERSION}.tgz"
-          echo "artifact_name=$ARCHIVE_NAME" >> "$GITHUB_OUTPUT"
           echo "archive_name=$ARCHIVE_NAME" >> "$GITHUB_OUTPUT"
-          echo "ARCHIVE_NAME=$ARCHIVE_NAME" >> "$GITHUB_ENV"
+          echo "ARCHIVE_NAME=$ARCHIVE_NAME"  >> "$GITHUB_ENV"
       - run: npm ci
       - run: npm run build
       - run: npm run lint
@@ -38,11 +36,14 @@ jobs:
       - name: archive dist
         if: startsWith(github.ref, 'refs/tags/v')
         run: tar -czf "$ARCHIVE_NAME" dist
-      - uses: actions/upload-artifact@v4
+      - name: upload artifact
         if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-artifact@v4
         with:
-          name: ${{ steps.pkgmeta.outputs.artifact_name }}
-          path: $ARCHIVE_NAME
+          name: release-asset
+          path: ${{ env.ARCHIVE_NAME }}
+          retention-days: 7
+          if-no-files-found: error
   release:
     needs: build
     runs-on: ubuntu-latest
@@ -55,10 +56,12 @@ jobs:
             echo "Tag ${GITHUB_REF_NAME} is not semver. Skipping release."
             exit 1
           fi
-      - uses: actions/download-artifact@v4
+      - name: download artifact
+        uses: actions/download-artifact@v4
         with:
-          name: ${{ needs.build.outputs.artifact_name }}
-      - name: Create GitHub Release
+          name: release-asset
+          path: .
+      - name: create release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
