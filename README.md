@@ -9,7 +9,84 @@ dv.pages().map(p => p.tables);
 
 // or
 
-dv.queryTable('"TableFolder"');
+dv.queryTables('"TableFolder"');
+```
+
+## Example
+
+A file `Example.md` with the following content:
+
+```markdown
+| Ingredient | Amount  |
+| ---------- | ------- |
+| Milk       | 0.5l    |
+| Flour      | 400g    |
+
+^ingredients
+```
+
+results in
+
+```js
+{
+    "path": "Example.md",
+    "index": 0,
+    "headers": [
+        {
+            "display": "Ingredient",
+            "links": [],
+            "isHeader": true,
+            "rowIndex": 0,
+            "columnIndex": 0
+        },
+        {
+            "display": "Amount",
+            "links": [],
+            "isHeader": true,
+            "rowIndex": 0,
+            "columnIndex": 1
+        }
+    ],
+    "rows": [
+        [
+            {
+                "display": "Milk",
+                "links": [],
+                "isHeader": false,
+                "rowIndex": 0,
+                "columnIndex": 0
+            },
+            {
+                "display": "0.5l",
+                "links": [],
+                "isHeader": false,
+                "rowIndex": 0,
+                "columnIndex": 1
+            }
+        ],
+        [
+            {
+                "display": "Flour",
+                "links": [],
+                "isHeader": false,
+                "rowIndex": 1,
+                "columnIndex": 0
+            },
+            {
+                "display": "400g",
+                "links": [],
+                "isHeader": false,
+                "rowIndex": 1,
+                "columnIndex": 1
+            }
+        ]
+    ],
+    "alignment": [
+        null,
+        null
+    ],
+    "caption": "ingredients"
+}
 ```
 
 ## Disclaimer
