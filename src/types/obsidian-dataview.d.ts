@@ -1,4 +1,5 @@
 import { type DataArray } from "obsidian-dataview";
+
 import type { ITable } from "../table/Table";
 
 declare module "obsidian-dataview" {

@@ -1,10 +1,11 @@
 import type { App } from "obsidian";
 import type { DataviewApi } from "obsidian-dataview";
-import type { ICache } from "./Cache";
+
 import { getContainer } from "../container";
 import { isSmarkdownPage } from "../dataview/ExtendedSMarkdownPage";
-import { parsedTableToTable } from "../mapper/table";
 import { NonSMarkdownPageError } from "../errors/NonSMarkdownPageError";
+import { parsedTableToTable } from "../mapper/table";
+import type { ICache } from "./Cache";
 
 export class CacheManager<T extends ICache> {
   private caches: Map<string, T>;

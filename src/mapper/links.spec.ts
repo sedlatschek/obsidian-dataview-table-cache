@@ -1,21 +1,25 @@
+import type {
+  Link as MdastLink,
+  WikiLink as MdastWikiLink,
+} from "mdast";
+import { type Link as DvLink } from "obsidian-dataview";
 import {
   describe,
   expect,
   it,
 } from "vitest";
-import { type Link as DvLink } from "obsidian-dataview";
-import type {
-  Link as MdastLink,
-  WikiLink as MdastWikiLink,
-} from "mdast";
-import { mdastLinkToDvLink } from "./links";
+
 import { getContainer } from "../container";
+import { mdastLinkToDvLink } from "./links";
 
 describe("links", () => {
   describe(mdastLinkToDvLink.name, () => {
     const dv = getContainer().dataviewManager.getDataviewApi();
 
-    const tests: { name: string; link: MdastLink; wikiLink: MdastWikiLink; expectedDvLink: Partial<DvLink> }[] = [
+    const tests: { name: string;
+      link: MdastLink;
+      wikiLink: MdastWikiLink;
+      expectedDvLink: Partial<DvLink>; }[] = [
       {
         name: "file link",
         link: {

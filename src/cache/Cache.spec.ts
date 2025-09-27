@@ -3,6 +3,7 @@ import {
   expect,
   it,
 } from "vitest";
+
 import { Table } from "../table/Table";
 import type { ICache } from "./Cache";
 import { MemoryCache } from "./MemoryCache";
@@ -14,13 +15,21 @@ describe("Cache", () => {
       index: 0,
       headers: [
         {
-          isHeader: true, rowIndex: 0, columnIndex: 0, links: [], display: "Header",
+          isHeader: true,
+          rowIndex: 0,
+          columnIndex: 0,
+          links: [],
+          display: "Header",
         },
       ],
       rows: [
         [
           {
-            isHeader: false, rowIndex: 0, columnIndex: 0, links: [], display: "Cell",
+            isHeader: false,
+            rowIndex: 0,
+            columnIndex: 0,
+            links: [],
+            display: "Cell",
           },
         ],
       ],
@@ -32,13 +41,21 @@ describe("Cache", () => {
       index: 1,
       headers: [
         {
-          isHeader: true, rowIndex: 0, columnIndex: 0, links: [], display: "Header",
+          isHeader: true,
+          rowIndex: 0,
+          columnIndex: 0,
+          links: [],
+          display: "Header",
         },
       ],
       rows: [
         [
           {
-            isHeader: false, rowIndex: 0, columnIndex: 0, links: [], display: "Cell",
+            isHeader: false,
+            rowIndex: 0,
+            columnIndex: 0,
+            links: [],
+            display: "Cell",
           },
         ],
       ],
@@ -49,13 +66,21 @@ describe("Cache", () => {
       index: 0,
       headers: [
         {
-          isHeader: true, rowIndex: 0, columnIndex: 0, links: [], display: "Header",
+          isHeader: true,
+          rowIndex: 0,
+          columnIndex: 0,
+          links: [],
+          display: "Header",
         },
       ],
       rows: [
         [
           {
-            isHeader: false, rowIndex: 0, columnIndex: 0, links: [], display: "Cell",
+            isHeader: false,
+            rowIndex: 0,
+            columnIndex: 0,
+            links: [],
+            display: "Cell",
           },
         ],
       ],

@@ -1,9 +1,10 @@
+import type { Link } from "obsidian-dataview";
 import {
   describe,
   expect,
   it,
 } from "vitest";
-import type { Link } from "obsidian-dataview";
+
 import type { ParsedTable } from "./ParsedTable";
 import type { IParser } from "./Parser";
 import { RemarkParser } from "./RemarkParser";
@@ -248,7 +249,8 @@ describe("Parser", () => {
 | [External Link](https://example.org)                                           | external                              |
 `;
         const tables = await parser.getTablesFromMarkdown(markdown);
-        const expectation: Omit<ParsedTable, "rows"> & { rows: { display?: string; links: Partial<Link> }[][] } = {
+        const expectation: Omit<ParsedTable, "rows"> & { rows: { display?: string;
+          links: Partial<Link>; }[][]; } = {
           index: 0,
           headers: [
             {

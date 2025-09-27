@@ -1,7 +1,7 @@
 import type { ParsedTable } from "../parser/ParsedTable";
 import {
-  Table,
   type ITable,
+  Table,
   type TableHeaderCell,
   type TableRowCell,
 } from "../table/Table";

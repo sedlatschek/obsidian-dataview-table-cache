@@ -1,4 +1,5 @@
 import type { Table } from "mdast";
+
 import type { ParsedCell } from "./ParsedCell";
 
 export interface ParsedTable {

@@ -3,6 +3,7 @@ import {
   expect,
   it,
 } from "vitest";
+
 import { Table } from "./Table";
 
 describe(Table.name, () => {

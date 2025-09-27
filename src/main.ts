@@ -1,4 +1,5 @@
 import { Plugin } from "obsidian";
+
 import { getContainer } from "./container";
 
 export default class ObsidianDataviewTableCache extends Plugin {

@@ -1,5 +1,6 @@
-import type { FullIndex } from "data-index";
 import "obsidian";
+
+import type { FullIndex } from "data-index";
 
 declare module "obsidian" {
   interface App {

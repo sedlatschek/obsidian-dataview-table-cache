@@ -1,13 +1,14 @@
 import type {
-  DataviewApi,
-  Link as DvLink,
-} from "obsidian-dataview";
-import type {
   Link as MdastLink,
   WikiLink as MdastWikiLink,
 } from "mdast";
-import { toString } from "../mdast/content";
+import type {
+  DataviewApi,
+  Link as DvLink,
+} from "obsidian-dataview";
+
 import { ExternalLinkMappingError } from "../errors/ExternalLinkMappingError";
+import { toString } from "../mdast/content";
 import { isExternalLink } from "../utility/utility";
 
 const MARKDOWN_EXTENSION_REGEX = /\.md?$/i;

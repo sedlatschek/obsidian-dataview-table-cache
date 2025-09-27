@@ -1,19 +1,19 @@
 import type { App } from "obsidian";
 import {
-  getAPI,
   type DataArray,
   type DataviewApi,
   type FullIndex,
+  getAPI,
   type PageMetadata,
 } from "obsidian-dataview";
 
 import { getContainer } from "../container";
-import { DataviewNotFoundError } from "src/errors/DataviewNotFoundError";
-import { isSmarkdownPage } from "./ExtendedSMarkdownPage";
+import { DataviewNotFoundError } from "../errors/DataviewNotFoundError";
+import { InvalidQueryFormatError } from "../errors/InvalidQueryFormatError";
+import { PatchingError } from "../errors/PatchingError";
 import type { ITable } from "../table/Table";
 import { addExtensionIfMissing as appendExtensionIfMissing } from "../utility/utility";
-import { InvalidQueryFormatError } from "../errors/InvalidQueryFormatError";
-import { PatchingError } from "src/errors/PatchingError";
+import { isSmarkdownPage } from "./ExtendedSMarkdownPage";
 
 export class DataviewManager {
   public getDataviewApi(app?: App): DataviewApi {

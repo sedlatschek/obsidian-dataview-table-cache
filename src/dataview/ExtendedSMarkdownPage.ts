@@ -2,6 +2,7 @@ import type {
   DataArray,
   SMarkdownPage,
 } from "obsidian-dataview";
+
 import type { ITable } from "../table/Table";
 
 type ExtendedSMarkdownPage = {

@@ -3,6 +3,7 @@ import {
   describe, expect,
   it,
 } from "vitest";
+
 import { toString } from "./content";
 
 describe("mdast/content", () => {

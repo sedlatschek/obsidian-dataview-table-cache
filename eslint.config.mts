@@ -1,13 +1,17 @@
 import js from "@eslint/js";
-import globals from "globals";
-import { defineConfig } from "eslint/config";
 import stylistic from "@stylistic/eslint-plugin";
+import { defineConfig } from "eslint/config";
+import simpleImportSort from "eslint-plugin-simple-import-sort";
+import globals from "globals";
 import tseslint from "typescript-eslint";
 
 export default defineConfig([
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
-    plugins: { js },
+    plugins: {
+      js,
+      "simple-import-sort": simpleImportSort,
+    },
     extends: ["js/recommended"],
     languageOptions: {
       globals: {
@@ -26,17 +30,23 @@ export default defineConfig([
   }),
   {
     rules: {
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error",
       "@stylistic/array-bracket-newline": [
         "error",
         { multiline: true },
       ],
       "@stylistic/array-element-newline": [
         "error",
-        { minItems: 2 },
+        "always",
       ],
       "@stylistic/eol-last": [
         "error",
         "always",
+      ],
+      "@stylistic/object-property-newline": [
+        "error",
+        { allowAllPropertiesOnSameLine: false },
       ],
       "@stylistic/object-curly-newline": [
         "error",
@@ -44,18 +54,22 @@ export default defineConfig([
           ObjectExpression: {
             multiline: true,
             minProperties: 2,
+            consistent: true,
           },
           ObjectPattern: {
             multiline: true,
             minProperties: 2,
+            consistent: true,
           },
           ImportDeclaration: {
             multiline: true,
             minProperties: 2,
+            consistent: true,
           },
           ExportDeclaration: {
             multiline: true,
             minProperties: 2,
+            consistent: true,
           },
         },
       ],

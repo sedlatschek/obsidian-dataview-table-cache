@@ -9,18 +9,19 @@ import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkWikiLink from "remark-wiki-link";
 import { unified } from "unified";
+
+import { getContainer } from "../container.js";
+import { mdastLinkToDvLink } from "../mapper/links.js";
+import { toString } from "../mdast/content.js";
 import {
   isParagraph,
   isParent,
   isTable,
 } from "../mdast/types.js";
-import type { IParser } from "./Parser.js";
-import type { ParsedTable } from "./ParsedTable.js";
-import { toString } from "../mdast/content.js";
-import type { ParsedCell } from "./ParsedCell.js";
-import { mdastLinkToDvLink } from "../mapper/links.js";
 import { isExternalLink } from "../utility/utility.js";
-import { getContainer } from "../container.js";
+import type { ParsedCell } from "./ParsedCell.js";
+import type { ParsedTable } from "./ParsedTable.js";
+import type { IParser } from "./Parser.js";
 
 export class RemarkParser implements IParser {
   private readonly processor = unified().use(remarkParse).use(remarkGfm).use(remarkWikiLink);
